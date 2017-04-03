@@ -1,0 +1,130 @@
+@import "variables";
+@import "mixins";
+@import "mixins-buttons";
+
+@include google-font("Roboto");
+
+@mixin warning{
+  background-color: #4CAF50;
+  color: #fff;
+}
+@mixin large-text {
+  font: {
+    size: 22px;
+    weight: 500;
+  }
+}
+.main-button {
+  background-color: $primary-color;
+  @include primary-button;
+}
+a{
+  background-color: $border-dark;
+  color: $light-primary-color;
+  &:hover {
+    background-color: lighten($border-dark, 10%);
+  }
+}
+
+.audit-log {
+  @include button-audit-log;
+}
+ a {
+  color: $text-primary-color;
+  padding: 6px 8px;
+  border-bottom: 2px solid transparentize(#fefefe, 1);
+  transition: border-bottom 0.3s;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition-timing-function: ease-in-out;
+  -ms-transition-timing-function: ease-in-out;
+  -o-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+
+  &:hover {
+    border-bottom: 2px solid opacify(#fefefe,.3);
+  }
+}
+
+
+p{
+  @include  large-screens{
+    color: #fff;
+  }
+  font-family: $text-font;
+}
+header{
+  height: $header-height;
+  background-color: $primary-color;
+}
+.warning-button {
+  @include warning;
+  padding: 15px;
+}
+.main-section{
+  background-color: $primary-color;
+  p{
+    @include large-text;
+    font-family: $text-font;
+
+  }
+}
+
+
+
+// === do black and white image === //
+img{
+  &:hover {
+    filter: grayscale(100%);
+  }
+}
+// === @extend ===//
+.super {
+  font-weight:500;
+  font-size: 15px;
+}
+%hightlight{
+color: red;
+
+}
+button .button {
+  @extend %hightlight;
+  @extend .super;
+}
+
+// === else if === //
+
+// === THEME ===//
+//Allowed values: Dark, Light, Default
+
+$theme: Dark;
+
+@if $theme == Dark {
+  $primary-color: #000;
+} @else if $theme == Light {
+  $primary-color: #fff;
+} @else {
+  $primary-color: #e4e5e9;
+}
+
+//  === LOOPS ===
+
+@for $i from 1 to 6 {
+  .col-#{$i} {
+    width: $i * 2em;
+  }
+}
+
+$speakers: bob-banker, patty-plume, sandra-smith;
+
+@each $speaker in $speakers {
+  .#{$speaker}-profile {
+    background-image: url('img/#{$speaker}.png');
+  }
+}
+
+$font-sizes: (tiny: 8px, small: 11px, medium: 13px, large: 18px);
+@each $name, $size in $font-sizes {
+  .#{$name} {
+    font-size: $size;
+}
+}
